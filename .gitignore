@@ -5,7 +5,7 @@
 
 .Rd2*
 *.Rproj
-*.pdf
+master_thesis.pdf
 
 .latex-cache
 *.acn
