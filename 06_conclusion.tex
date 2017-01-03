@@ -1,0 +1,40 @@
+\chapter*{Conclusion}
+	\label{chap:conclusion}
+\addcontentsline{toc}{chapter}{Conclusion}
+
+We introduced the theory of inhomogeneous Markov process and specifically of inhomogeneous Poisson process which is a special case.
+The theory generalizes the properties of homogeneous Markov process that is generally well known and described in many literature.
+We paid special attention to processes with separable inhomogeneity and proved that it is necessary and sufficient condition for transformability to homogeneous Markov process. The separable inhomogeneity also implies that the process has embedded chain that has Markov property and is homogeneous.
+
+The intensity of Markov process can be estimated using maximum likelihood theory.
+We explained in detail how to calculate the estimates for different types of the process.
+First, we derived the method for homogeneous Markov process.
+The we did the same for separated inhomogeneity and for constant rate matrix -- both separately and together.
+Finally we described a model for general inhomogeneous Markov process that could be also dependent on any exogenous variable.
+Every section was accompanied by en example.
+This theory can be also used for testing, e.g. testing of homogeneity of Poisson process, as it was shown in an example.
+
+The two algorithms -- response surface and cross entropy -- was introduced as methods for solving optimization problems for which the objective function is unknown and observable only with an error.
+Both methods require simulations of objective functions.
+In a simple example we saw that cross entropy algorithm converges faster to actual optimum.
+Both these methods were intended to be used in multistage optimization as well.
+However, there is a lot of literature about multistage optimization that it was not necessary to describe it along with simulated optimization in this thesis.
+
+Both statistics and optimization from Chapters 2 and 3 were implemented in a complex example of train ticket fare optimization.
+The occupancy of the train is interpreted as inhomogeneous Markov process and return from sold tickets is maximized by controlling the intensity via fare price.
+The only input into the model are historical data of selling the tickets.
+This means that the intensity was about to be estimated.
+However, we found out that the variability of the estimates of the intensity parameters is too high to be any useful for any reasonable size of the data.
+
+The optimization of fare was done using actual intensity because it was impossible to estimate it from generated data.
+The Markov process representing sold tickets has too many states to be able to calculate transition probabilities from intensity matrix.
+Therefore the optimization requires simulating the demand and estimating the objective function from the simulated returns.
+That implies that both the number of iterations of the algorithm and the number of simulations in each iteration must be limited.
+This is even bigger issue when calculating multistage optimization because the number of simulations grows exponentially with number of stages.
+Therefore we managed to approximate the optimum for only two-stage problem.
+The number of iterations was still insufficient.
+
+One simplification is to reformulate the problem with exogenous uncertainty.
+We proved that it is possible to simulate the randomness even before the price is known and then calculate the return using this scenario (or multiple scenarios).
+This allows us to reformulate the problem into quadratic programming but with indefinite matrix in objective function.
+

@@ -2,7 +2,7 @@
 \addcontentsline{toc}{chapter}{Introduction}
 
 
-In this thesis we build a model for pricing train fares using continuous-time inhomogeneous Markov process. Such model can be useful pro for any kind of service that happens in predetermined time. The train transportation has its own specific competition on the demand side. That is, two passengers can compete each other even if they are not buying the same service. By the same service we mean transportation between the same stations in this particular case.
+In this thesis we build a model for pricing train fares using continuous-time inhomogeneous Markov process. Such model can be useful for any kind of service that happens in predetermined time. The train transportation has its own specific competition on the demand side. That is, two passengers can compete each other even if they are not buying the same service. By the same service we mean transportation between the same stations in this particular case.
 
 \cite{Williams13} solved similar problem with airplane ticket prices. He mainly studied how the demand and its price elasticity changes in time and how dynamic models can significantly increase the return form sold tickets.
 
@@ -14,6 +14,10 @@ The thesis is divided into two parts. Theory contains general results that are b
 
 In first chapter we introduce the theory of inhomogeneous Markov processes. Ordering of this chapter follows textbook of stochastic processes \cite{PraskovaLachout12}, where all the theory is derived for the homogeneous Markov process only. Most of the proofs of theorems in this chapter are also adapted from this textbook. Some theorems from the textbook are left out mostly because they are not relevant to the topic or does not hold for the inhomogeneous process. On the other hand, some definitions and theorems that was not included in the textbook had to be added to this thesis to complete the theory of inhomogeneous Markov processes. An example of such theory might be Chapter \nameref{chap:separable} whose content makes no sense in homogeneous case.
 
-In Chapter \nameref{chap:statistics} we introduce several models for the intensity of Markov process. The models are ordered by their complexity from the homogeneous case to general inhomogeneous case and regression model in which the intensity depends on exogenous variables. Individual models are illustrated on simple examples for more clarity. The intensity is estimated using maximum likelihood estimates. The theory of maximum likelihood is not introduce in this thesis. Instead, the reader is recommended a literature where the theory is clearly summarized. All models described in this chapter are author's own contribution.
+In Chapter \nameref{chap:statistics} we introduce several models for the intensity of Markov process. The models are ordered by their complexity from the homogeneous case to general inhomogeneous case and regression model in which the intensity depends on exogenous variables. Individual models are illustrated on simple examples for more clarity. The intensity is estimated using maximum likelihood estimates. The theory of maximum likelihood is not introduce in this thesis. Instead, a literature where the theory is clearly summarized is recommended to the reader. All models described in this chapter are author's own contribution.
 
 We describe two methods for simulation optimization in the third chapter. The first method, a response surface method, is partly based on own study and partly based on the results from \cite{Kroese11}. The second method, cross entropy, is taken from that book. We also introduce a method for multistage stochastic optimization that is taken from \cite{Pflug14}.
+
+In the second part of this thesis we try to implement the theory into a statistics and optimization problem - dynamic fare optimization.
+The implementation is done in R language and the methods are packed into a library\footnote{Available at https://github.com/jankislinger/dynFare.}.
+The results show that Markov process is not efficient way to solve such problem.

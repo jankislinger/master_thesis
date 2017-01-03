@@ -1,49 +1,57 @@
 \chapter{Optimal Price of Fare}
 	\label{chap:optimalPrice}
 	
-We use the estimated demand intensity from previous chapter to find an optimal price of fare. First, we solve the single-stage problem to find the optimal price for each route that would apply for the whole selling period. Then we add the possibility to change the initial decision on the price during the selling period. The decision can be done only at certain moments, \emph{decision times}. The decision times are chosen before the selling period and cannot be change later.
+We use the demand intensity from previous chapter to find an optimal price of fare. First, we solve the single-stage problem to find the optimal price for each route that would apply for the whole selling period. Then we add the possibility to change the initial decision on the price during the selling period. The decision can be done only at certain moments, \emph{decision times}. The decision times are chosen before the selling period and cannot be change later.
 
 The objective function to which the price is optimized is expected return, that is the sum of prices of all sold tickets. We use the same state space $\S$ as we did in Chapter~\ref{chap:Demand}. The objective variable for each stage of the multistage problem is
 \[
 	Y_m = h (\z_m, \z_{m-1}, \m{p}_{m}) = \m{p}_{m}^{\top} (\z_m - \z_{m-1}),
 \]
-where $\m{p}_m$ is the decision variable for $m$-th stage, i.e. the prices for all stations for $m$-th period. The randomness of $Y_m$ is caused via $\z_m$ which depends on the uncertainty factor $\varepsilon_m$.
+where $\m{p}_m$ is the decision variable for $m$-th stage, i.e. the prices for all stations for $m$-th period. The randomness of $Y_m$ is caused via $\z_m$ (number of tickets sold at the end of $m$-th period) which depends on the uncertainty factor $\varepsilon_m$ (i.e. the randomness in demand).
 
-The set of general feasible solutions $\mathcal{X}$ that must hold for prices between each decisions is given by following conditions:
+The set of general feasible solutions $\mathcal{X}$ that must hold for prices between each decisions is given by following constraints:
 \begin{enumerate}[\itshape i)]
 	\item If one route is part of another route the longer route must not have cheaper tickets, i.e.
-		\[
+		\begin{equation}
+			\label{eq:constr1}
 			p_{k,l} \leq p_{k',l'}, \qquad k' \leq k < l \leq l'.
-		\]
+		\end{equation}
 	
 	\item A route must not have more expensive ticket than sum of ticket prices of routes that combine to the original route, i.e.
-		\[
+		\begin{equation}
+			\label{eq:constr2}
 			p_{k,l} \leq p_{k,h} + p_{h,l}, \qquad k < h < l.
-		\]
+		\end{equation}
 	
-	\item All tickets must have positive price. Thanks to condition \textit{i} it is sufficient to have only conditions on the routes with length of one station, i.e.
+	\item All tickets must have positive price. Due to condition \textit{i} it is sufficient to have only constraints on the routes between adjacent stations, i.e.
 		\[
-			p_{k,k+1} > 0, \qquad k = 1, ..., K-1
+			p_{k,k+1} > 0, \qquad k = 1, ..., K-1.
 		\]
+		Since $\lambda (p, t; \m{\beta}) \to \infty$ as $p \to 0$ for reasonable values of $\m{\beta}$ ($\beta_2 + \beta_4 t < 0$) and the demand is simulated as Poisson process with such intensity, it is reasonable to forbid prices close to zero. Because of that we set constraints to
+		\begin{equation}
+			\label{eq:constr3}
+			\m{p} \geq \m{p}_0,
+		\end{equation}
+		where $\m{p}_0 > 0$ is $\binom{K}{2}$-dimensional constant (in our case $\theta = (50, ..., 50)^\T$). 
 \end{enumerate}
-These conditions are replaced by a penalty function. For conditions \textit{i} and \textit{ii} we suppose a linear penalty function and for condition \textit{iii} we suppose a perfect penalty. The penalty function can be written as
+Constraints (\ref{eq:constr1}) and (\ref{eq:constr2}) are replaced by linear penalty function
 \[
-	\Phi_1 (\m{p}) = \begin{cases}
-			\displaystyle{\sum_{k' \leq k < l \leq l'}} [p_{k',l'} - p_{k,l}]_{_{+}} + \displaystyle{\sum_{k < h < l}} [p_{k,h} + p_{h,l} - p_{k,l}]_{_{+}}, & \m{p} > 0 \\
-			\infty & else.
-		\end{cases}
+	\Phi_1 (\m{p}) =
+		\displaystyle{\sum_{k' \leq k < l \leq l'}} [p_{k',l'} - p_{k,l}]_{_{+}} +
+		\displaystyle{\sum_{k < h < l}} [p_{k,h} + p_{h,l} - p_{k,l}]_{_{+}}
 \]
-where $[\; \cdot \;]_{_{+}} = \max\{ \; \cdot \; , 0 \}$ denotes the positive part. The reason for the perfect penalty is that we are unable to simulate demand for negative or zero price and regardless the outcome of the $Y$ the objective function including the penalty function will be $-\infty$.
+where $[\; \cdot \;]_{_{+}} = \max\{ \; \cdot \; , 0 \}$ denotes the positive part and $\bm{1}$ is vector of ones with respective length.
+%The reason for the perfect penalty is that we are unable to simulate demand for negative or zero price and regardless the outcome of the $Y$ the objective function including the penalty function will be $-\infty$.
 
 The specific conditions for $m$-th decision variables is given by
-\[
+\begin{equation}
+	\label{eq:constr4}
 	\mathcal{X} (\m{p}_{m-1}) = \{ \m{p}_m \in \mathcal{X}: \m{p}_m \geq \m{p}_{m-1} \}, \qquad m = 2, ..., M
-\]
-so the tickets are at least that expensive as they were after previous decision. The penalty function for this condition is
+\end{equation}
+so the tickets are at least that expensive as they were after previous decision. The penalty function for constraints (\ref{eq:constr3}) and (\ref{eq:constr4}) is
 \[
-	\Phi_2 (\m{p}_m) = \bm{1}^{\top} [\m{p}_{m-1} - \m{p}_m]_{_{+}},
+	\Phi_2 (\m{p}_m) = \bm{1}^{\top} [\m{p}_{m-1} - \m{p}_m]_{_{+}}.
 \]
-where $\bm{1}$ is vector of ones with respective length.
 
 We can write the maximization problem using penalty functions as
 \begin{equation*}
@@ -52,15 +60,23 @@ We can write the maximization problem using penalty functions as
 		& \st & & \m{p}_m \in \R^{\binom{K}{2}}, \qquad m = 1, ..., M
 	\end{aligned}
 \end{equation*}
-where $\theta > 0$ is a \emph{penalty coefficient}. In our case, we set $\theta = 300$.
+where $\theta > 0$ is a \emph{penalty coefficient}. In our case, we set $\theta = 1000$.
 
-Let us begin with the single-stage problem, that is $M=1$ and the selected prices hold during whole selling period. The problem is solved in two phases. In the first phase, we use the cross entropy algorithm to find a solution that is close to the actual optimum. The algorithm is useful to begin with if we have no good guess where the solution is because it searches through the set of feasible solutions globally and narrows this set. On the other hand, it does not have to converge to the actual optimum. We used normal distribution as the sampling distribution. The initial mean is as in Table~\ref{tab:priceSolutions} (a) and the initial variance matrix is diagonal with diagonal elements $\sigma_{(k,l), (k,l)}^2 = (p_{k,l} / 3)^2$.The algorithm was iterated 100-times and during each iteration 1000 new data point were generated. New sampling distribution was estimated using $45\%$ best performing observations. The result of the algorithm is in Table~\ref{tab:priceSolutions} (b).
 
-In the second phase, we used the response surface algorithm on the data generated in the first phase. In addition, we generated 1000 new data during each iteration of the algorithm. The prices were generated from multivariate (mutually independent) normal distribution with mean equal to current approximation of the optimum price and variance $10 r^{-1/4}$ in $r$-th iteration. The derivative of the objective function was estimated locally using $20\%$ of the observations. The new approximation of the price were calculated by
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Single-stage model}
+	\label{chap:singleStageModel}
+
+Let us begin with the single-stage problem, that is $M=1$ and the selected prices hold during whole selling period. The problem is solved in two phases. In the first phase, we use the cross entropy algorithm to find a solution that is close to the actual optimum. The algorithm is useful to begin with if we have no good guess where the solution is because it searches through the set of feasible solutions globally and narrows this set. On the other hand, it does not have to converge to the actual optimum. We used normal distribution as the sampling distribution. The initial mean is as in Table~\ref{tab:priceSolutions} (a) and the initial variance matrix is diagonal with diagonal elements $\sigma_{(k,l), (k,l)}^2 = 500$. The algorithm was iterated 20-times and during each iteration 2000 new data point were generated. New sampling distribution was estimated using $25\%$ best performing observations. The result of the algorithm is in Table~\ref{tab:priceSolutions} (b).
+
+In the second phase, we used the response surface algorithm on the data generated in the first phase. In addition, we generated 500 new data during each iteration of the algorithm. The prices were generated from multivariate (mutually independent) normal distribution with mean equal to current approximation of the optimum price and standard deviation $10$. The derivative of the objective function was estimated locally using $30\%$ of the observations. The new approximation of the price were calculated by
 \[
-	\m{p}^{(r+1)} = \m{p}^{(r)} + 4 r^{-1/5} \frac{\widehat{\nabla} (\m{p}^{(r)})}{ \left\| \widehat{\nabla} (\m{p}^{(r)}) \right\| }.
+	\m{p}^{(r+1)} = \m{p}^{(r)} + \frac{\widehat{\nabla} (\m{p}^{(r)})}{20}.
 \]
-Results for this method are in Table~\ref{tab:priceSolutions} (c).
+Results for this method are in Table~\ref{tab:priceSolutions} (c). Note that the solution does not fulfill the constraints~\eqref{eq:constr1}. This solution may be justified by projection into the set of feasible solutions.
 
 \begin{table}[t]
 	\centering
@@ -87,11 +103,11 @@ Results for this method are in Table~\ref{tab:priceSolutions} (c).
 				\hline
 				 & 2 & 3 & 4 & 5 & 6 \\ 
 				\hline
-				1 & 302.8 & 333.5 & 350.3 & 472.8 & 521.0 \\ 
-				2 &  & 316.3 & 331.4 & 446.4 & 472.8 \\ 
-				3 &  &  & 276.0 & 294.1 & 297.7 \\ 
-				4 &  &  &  & 176.0 & 190.3 \\ 
-				5 &  &  &  &  & 124.5 \\ 
+				1 & 317.9 & 419.7 & 478.0 & 624.2 & 794.3 \\ 
+				2 &  & 187.8 & 208.4 & 496.1 & 671.3 \\ 
+				3 &  &  & 176.6 & 418.2 & 591.6 \\ 
+				4 &  &  &  & 320.1 & 501.2 \\ 
+				5 &  &  &  &  & 283.9 \\ 
 				 \hline
 			\end{tabular}
     \caption{Cross Entropy.}
@@ -105,11 +121,11 @@ Results for this method are in Table~\ref{tab:priceSolutions} (c).
 				\hline
 				 & 2 & 3 & 4 & 5 & 6 \\ 
 				\hline
-				1 & 171.0 & 215.8 & 336.2 & 441.1 & 487.2 \\ 
-				2 &  & 190.8 & 305.1 & 385.2 & 448.8 \\ 
-				3 &  &  & 253.0 & 310.8 & 342.9 \\ 
-				4 &  &  &  & 137.1 & 179.6 \\ 
-				5 &  &  &  &  & 114.9 \\ 
+				1 & 231.8 & 344.3 & 363.2 & 454.0 & 476.3 \\ 
+				2 &  & 317.3 & 312.2 & 444.0 & 442.7 \\ 
+				3 &  &  & 293.8 & 398.5 & 423.4 \\ 
+				4 &  &  &  & 124.1 & 316.3 \\ 
+				5 &  &  &  &  & 225.3 \\ 
 				 \hline
 			\end{tabular}    
 		\caption{Response Surface.}
@@ -117,7 +133,17 @@ Results for this method are in Table~\ref{tab:priceSolutions} (c).
 	\hfill
 	\begin{subtable}[b]{0.49\textwidth}
     \centering
-			\textbf{\color{red} Bude doplneno o numericke vysledky}  
+			\begin{tabular}{cccccc}
+				\hline
+				 & 2 & 3 & 4 & 5 & 6 \\ 
+				\hline
+				1 & 224.6 & 336.9 & 351.7 & 447.2 & 478.6 \\ 
+				2 &  & 308.4 & 307.5 & 443.6 & 439.7 \\ 
+				3 &  &  & 275.9 & 398.9 & 413.1 \\ 
+				4 &  &  &  & 127.2 & 306.2 \\ 
+				5 &  &  &  &  & 221.6 \\ 
+				 \hline
+			\end{tabular}    
 		\caption{Dynamic pricing.}
   \end{subtable}
 
@@ -125,7 +151,11 @@ Results for this method are in Table~\ref{tab:priceSolutions} (c).
 	\label{tab:priceSolutions}
 \end{table}
 
-We compared the results from both phases to verify that the second phase actually improved the solution. The expected return with price given from the first phase is 594,069 (591,990--596,148). With the prices obtained after the second phase the expected return is 659,144 (658,177--660,110). Both these results were estimated using 1,000 observations. The standard deviation of return was estimated for both prices as 10,477 and 4,870, respectively.
+We compared the results from both phases to verify that the second phase actually improved the solution. The expected return with price given from the first phase is 557,481 (556,505--558,457). With the prices obtained after the second phase the expected return is 732,923 (731,893--733,953). Both these results were estimated using 1,000 observations.
+%The standard deviation of return was estimated for both prices as xxx and xxx, respectively.
+
+To approximate the solution of the optimization problem we had to simulate the demand 140,000-times in both phases combined.
+This took more than two hours on regular PC.
 
 
 
@@ -141,16 +171,85 @@ We did 300 iterations with 1,000 simulated demands in the static (single-stage) 
 
 The easiest way to solve this is to solve a single-stage problem at each decision time. The prices are optimizes as if they were set up until the train departure. This prices hold up to following decision when they are changed again as if the were set up until the train departure. The prices for the first time interval are the same as in Table~\ref{tab:priceSolutions}.
 
-The other way is to solve only two-stage problem in each decision time (except the last decision time $t_{M-1}$). The $m$-th decision is made as if the prices hold until the very following decision time and at that time they were changed until the departure of the train. The initial point for the prices in the first time interval in the dynamic model are taken from the output of the static model. In each iteration the seat occupancy is generated along with return over the first interval. Then the optimal price till the departure of the train is found. Expected return in this price for the rest of the selling period is estimated. Finally, the returns from both time intervals are added up to generate the outcome for given price. This way we generate outcomes for 100 prices in each iteration.
+The other way is to solve only two-stage problem in each decision time (except the last decision time $t_{M-1}$). The $m$-th decision is made as if the prices hold until the very following decision time and at that time they were changed until the departure of the train. The initial point for the prices in the first time interval in the dynamic model are taken from the result of the single-stage problem. In each iteration the seat occupancy is generated along with return over the first interval. Then the optimal price till the departure of the train is found. Expected return in this price for the rest of the selling period is estimated. Finally, the returns from both time intervals are added up to generate the outcome for given price.
 
-The estimated optimum for the dynamic model is in Table~\ref{tab:priceSolutions} (d). \textbf{\color{red} Zaver bude doplnen spolu s numerickymi vysledky}
+Because the two-stage problem is much more complex problem for simulated optimization we reduced the number of simulations.
+First, we did 3 iterations of Cross Entropy algorithm with 100 iterations each.
+The response surface method with 20 iterations by 20 simulations followed.
+This means we made 490,000 simulations but the precision decreased because of less number of simulations
+
+The estimated optimum for the dynamic model is in Table~\ref{tab:priceSolutions} (d).
+Note that the optimum prices are in general less than the optimal prices of the single-stage problem.
+This is caused by the constraint~\eqref{eq:constr4}.
+
 
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\section{Reformulation with exogenous uncertainty}
-	%\label{chap:exogenousReformulation}
+\section{Reformulation with exogenous uncertainty}
+	\label{chap:exogenousReformulation}
+	
+The methods for simulated optimization are generally time demanding especially for multistage optimization. The reason is that we need to simulate the output every time we want to change the decision variable. If we were able to simulate the randomness (\emph{scenario}) only once and then recalculate the output every time we want to change the decision variable.
+
+Until now we simulated the process of selling tickets for given prices. Another way is to simulate all potential passengers and their maximum acceptable price and eventual time of purchase. This allows us to rewrite the problem into quadratic programming with following inputs from simulated scenario:
+\begin{center}
+	\begin{tabular}{ll}
+		N & number of potential passengers, \\
+		\pi_1, ..., \pi_N & maximum acceptable prices, \\
+		\tau_1, ..., \tau_N & eventual times of purchase, \\
+		(k_1, l_1), ..., (k_N, l_N) & boarding and exiting stations.
+	\end{tabular}
+\end{center}
+
+While simulating such scenario we need to keep the intensity as in \eqref{eq:demandModel}.
+We can achieve this by setting low\footnote{The price $p_0$ needs to be low enough to be sure that is is less than the optimum. On the other hand, too low price implies large number of potential passengers, which increases computational complexity for both the simulations and consecutive optimization.} price $p_0$ and simulate the process of demand as if it was the desired price, i.e. simulate Poisson process with intensities $\lambda (p_0, t; \m{\beta})$ for every pair of stations without any capacity constraint. Than we simulate the maximum acceptable price for each potential passenger from Pareto distribution with shape $-\beta_2 - \beta_4 t$ and scale $p_0$. Its probability distribution function is
+\[
+	\pr [\pi_i \leq x] = 1 - \left( \frac{x}{p_0} \right)^{\beta_2 + \beta_4 t_i}, \qquad x \geq p_0.
+\]
+The process intensity and required distribution of total return is ensured by Proposition~\ref{prop:compoundPoisson}.
+
+
+
+Denote by $\m{R} \in \R^{N \times (K-1)}$ and $\m{S} \in \R^{N \times \binom{K}{2}}$ matrices indicating the occupancies and routes for each potentional passenger, i.e.
+\[
+	\m{R}_{i,k} = \begin{cases}
+		1, & k_i \leq k \wedge k+1 \leq l_i \\
+		0, & \text{else,}
+	\end{cases}
+\]
+\[
+	\m{S}_{i,(k,l)} = \begin{cases}
+		1, & k_i = k \wedge l_i = l \\
+		0, & \text{else.}
+	\end{cases}
+\]
+The quadratic programming problem is in form of
+\begin{equation*}
+	\begin{aligned}
+		& \underset{\m{p}, \m{y}, \m{z}}{\max} & & (\m{p}^\top, \m{y}^\top, \m{z}^\top) \m{D}
+				( \m{p}^\top, \m{y}^\top, \m{z}^{\top} )^{\top} \\
+		& \st & & \m{p} \in \R^{\binom{K}{2}} \\
+		&     & & \m{y} \in \{0,1\}^N \\
+		&     & & \m{z} \in \{0,1\}^{N \times (K-1)} \\
+		&     & & \T{\m{R}} \m{y} \leq (M, ..., M)\T{} \\
+		&     & & y_i = 0 \vee \m{S}_{i *} \m{p} \leq \pi_i, \qquad i = 1, ..., N \\
+		&     & & y_i \leq y_j \vee \m{S}_{i *} \m{p} > \pi_i \vee \sum_{k=1}^{K-1} (1-z_{(i,k)}) \geq 1, \qquad i < j \\
+		&     & & z_{(i,k)} = 1 \vee (\m{R}_{i,k} = 1 \wedge \sum_{j=1}^{i-1} \m{R}_{j,k} y_j \leq M), \\
+		&     & &  \qquad \qquad \qquad \qquad \qquad \qquad (i,k) = (1,1), ..., (N,K-1) \\
+	\end{aligned}
+\end{equation*}
+where $\m{S}_{i *}$ denotes $i$-th row of matrix $\m{S}$ and
+\[
+	\m{D} = \begin{pmatrix}
+		\m{0} & \T{\m{S}} & \m{0} \\
+		\m{S} & \m{0}     & \m{0} \\
+		\m{0} & \m{0}     & \m{0}
+	\end{pmatrix}
+\]
+is block matrix with block sizes equivalent to sizes of vectors $\m{x}$, $\m{y}$, and $\m{z}$.
+All the constraints above are easily transferable into linear constraints. An issue is that the matrix $\m{D}$ is indefinite and standard solvers cannot solve this problem.
+
 
 

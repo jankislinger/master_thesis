@@ -1,7 +1,7 @@
 \chapter{Estimating Transition Intensity}
 	\label{chap:statistics}
 
-In this chapter, we build several parametric models for intensity functions of inhomogeneous Markov process. For each of the models we propose a method for estimating the parameter using maximum likelihood. The theory of maximum likelihood estimates (MLE) is not described in this thesis. The reader can find general results for example in~\cite{Andel11}, Chapter~7.6. We try to keep the notation close to the notation at the mentioned book.
+In this chapter, we build several parametric models for intensity functions of inhomogeneous Markov process. For each of the models we propose a method for estimating the parameter using maximum likelihood. The theory of maximum likelihood estimates (MLE) is not described in this thesis. The reader can find general results for example in~\cite{Andel11}, Chapter~7.6. We try to keep the notation close to the notation at said book.
 
 We will estimate the parameter using embedded Markov chain and dwell times of multiple observations of Markov process on the same time interval. Let $\mathbf{X}^1, \dots, \mathbf{X}^n$ be a random sample from distribution of inhomogeneous Markov process with state space $S$, intensity $\m{Q} (t; \bm{\theta}_X)$, and initial probability $\m{p} (\bm{\theta}_X)$, where $\bm{\theta}_X \in \R^H$ is the unknown parameter. Denote by $K^{\nu}$ the number of jumps of process $\mathbf{X}^{\nu}$, by $T^{\nu}_1, ... , T^{\nu}_{K^{\nu}}$ the times of jumps and by $Y^{\nu}_0, ... , Y^{\nu}_{K^{\nu}}$ the embedded Markov chain.
 
@@ -25,7 +25,7 @@ is the cumulative distribution function of the dwell time given that the process
 \]
 is the respective probability density function.
 
-Let use denote the likelihood function by $L_n (\bm{\theta})$ and exclude the observed data $\mathbf{X}^1, \dots, \mathbf{X}^n$ from the notation. Further we use standard notation $\ell_n (\bm{\theta}) = \log(L_n (\bm{\theta}))$ for log-likelihood, $\m{U}_n (\bm{\theta}) = \partial \ell_n (\bm{\theta}) / \partial \bm{\theta}$ for the score function, $\m{I}_n (\bm{\theta}) = -1/n \times \partial \m{U}_n (\bm{\theta}) / \partial \bm{\theta}$ for the observed information matrix, and $\m{I} (\bm{\theta}) = \E [\m{I}_n (\bm{\theta})]$ the Fisher information matrix.
+Let use denote the likelihood function by $L_n (\bm{\theta})$ and exclude the observed data $\mathbf{X}^1, \dots, \mathbf{X}^n$ from the notation. Further we use standard notation $\ell_n (\bm{\theta}) = \log(L_n (\bm{\theta}))$ for log-likelihood, $\m{U}_n (\bm{\theta}) = \partial \ell_n (\bm{\theta}) / \partial \bm{\theta}$ for the score function, $\m{I}_n (\bm{\theta}) = -1/n \times \partial \m{U}_n (\bm{\theta}) / \partial \bm{\theta}$ for the observed information matrix, and $\m{I} (\bm{\theta}) = \E [\m{I}_n (\bm{\theta})]$ for the Fisher information matrix.
 
 The true vector parameter $\bm{\theta}_X$ is estimated by parameter $\hat{\bm{\theta}}_n$ that maximizes the likelihood function. In most cases, that is equivalent to solving the system of equations $\m{U}_n (\bm{\theta}) = \m{0}$.
 
@@ -137,7 +137,7 @@ where $\theta_X$ denotes the true parameter.
 At the end of this section, let us state a proposition about estimation of full model. The result is straightforward and intuitive and the proposition is left without a proof.
 
 \begin{proposition}
-	Let $\X^1, ..., \X^n$ be a random sample from homogeneous Markov process with transition rate $\m{Q} = (q_{ij})_{i,j \in S}$ and initial probability vector $\m{p} = (p_i)_{i \in S}$. Denote by $N_{ij}$ total number of transitions from state $i$ to state $j$, by $M_i$ number of processes that initiates at state $i$, and by $T_i$ total time spent in state $i$. If $T_i > 0$, the MLE estimator of transition rates and initial probabilities are
+	Let $\m{X}^1, ..., \m{X}^n$ be a random sample from homogeneous Markov process with transition rate $\m{Q} = (q_{ij})_{i,j \in S}$ and initial probability vector $\m{p} = (p_i)_{i \in S}$. Denote by $N_{ij}$ total number of transitions from state $i$ to state $j$, by $M_i$ number of processes that initiates at state $i$, and by $T_i$ total time spent in state $i$. If $T_i > 0$, the MLE estimator of transition rates and initial probabilities are
 	\begin{align*}
 		\widehat{q_{ij}} = \frac{N_{ij}}{T_i}, \qquad
 		\widehat{p_i} = \frac{M_i}{n}.
@@ -157,9 +157,9 @@ Note that MLE estimators from Proposition~\ref{prop:generalMC} does not fulfill 
 \section{Separated Inhomogeneity}
 	\label{chap:statSeparInhom}
 	
-	Since this chapter, we assume that the distribution of initial probability $\m{p}$ is known and does not depend on the unknown parameter $\bm{\theta}$. In most of the examples we show in this thesis, the initial distribution is concentrated in single state space (either $p_0 = 1$ or $p_1 = 1$).
+	From this chapter on, we assume that the distribution of initial probability $\m{p}$ is known and does not depend on the unknown parameter $\bm{\theta}$. In most of the examples we show in this thesis, the initial distribution is concentrated in single state space (either $p_0 = 1$ or $p_1 = 1$).
 
-Assume that $\X$ is Markov process process with separable inhomogeneity, i.e. its transition rate matrix is
+Assume that $\m{X}$ is Markov process process with separable inhomogeneity, i.e. its transition rate matrix is
 \[
 	\m{Q}(t) = \lambda(t) \m{\Gamma}, \qquad \forall t \geq 0.
 \]
@@ -233,13 +233,13 @@ It is not possible to solve the system of equations $\m{U}_n (\bm{\beta}) = \bm{
 		\]
 		Since $\tilde{\bm{\beta}}_n = (\tilde{\beta}_{0,n}, 0, ..., 0)^{\top}$ is consistent estimate of $\bm{\beta}_0$ under null hypothesis, also the matrix
 		\[
-			\m{I} (\tilde{\bm{\beta}}_n) = \left\{ \frac{\sum_{\nu = 1}^n X_T^{\nu}}{n (i+j-1)}, i,j = 1, ..., H+1 \right\}
+			\m{I} (\tilde{\bm{\beta}}_n) = \left\{ \frac{\sum_{\nu = 1}^n X_T^{\nu}}{n (i+j-1)}; i,j = 1, ..., H+1 \right\}
 		\]
 		is consistent estimate of $\m{I} (\bm{\beta}_0)$. The Rao score statistic is		
 		\[
 			R_n = \frac{1}{\sum_{\nu = 1}^n X_T^{\nu}} \m{U}_{-1,n} (\tilde{\bm{\beta}}_n) ^{\top} \left[ [ \mathcal{H}_{H+1} ]^{-1} \right]_{-1,-1} \m{U}_{-1,n} (\tilde{\bm{\beta}}_n),
 		\]
-		where $\m{U}_{-1,n} (\bm{\beta})$ is the score function at point $\tilde{\bm{\beta}}_n$ where the first element is excluded and $\mathcal{H}_k$ is the $k \times k$ Hilbert matrix. By notation $A_{-i,-j}$ we indicate the matrix $A$ without $i$-th row and $j$-th column excluded. 
+		where $\m{U}_{-1,n} (\tilde{\bm{\beta}}_n)$ is the score function at point $\tilde{\bm{\beta}}_n$ where the first element is excluded and $\mathcal{H}_k$ is the $k \times k$ Hilbert matrix. By notation $A_{-i,-j}$ we indicate the matrix $A$ without $i$-th row and $j$-th column excluded. 
 		The statistic has (under null hypothesis) $\chi^2$ distribution with $H$ degrees of freedom so one can reject the  null hypothesis if $R_n \geq \chi_H^2(1-\alpha)$.
 		
 		Note that we are able to calculate the Rao score statistic without calculating the MLE of $\bm{\beta}$ (without assumption that the null hypothesis holds).
@@ -254,11 +254,11 @@ It is not possible to solve the system of equations $\m{U}_n (\bm{\beta}) = \bm{
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Constant Rate Matrix}
 
-Suppose that the separated inhomogeneity function $\lambda$ is known and we are interested in estimating the constant rate matrix $\bm{\Gamma} = \bm{\Gamma} (\bm{\theta})$. By Proposition \ref{prop:separable}, we are able to find a homogeneous transformation of the process $\m{X}$. Then, we can use this homogeneous transformation and results from Chapter~\ref{chap:statSeparInhom} to estimate the parameter $\bm{\theta}$.
+In this chapter we follow notation from Chapter~\ref{chap:separable}. Suppose that the separated inhomogeneity function $\lambda$ is known and we are interested in estimating the constant rate matrix $\bm{\Gamma}$. We suppose that the matrix depends on unknown vector parameter $\bm{\theta}$. We denote the matrix by $\bm{\Gamma} (\bm{\theta})$. By Proposition \ref{prop:separable}, we are able to find a homogeneous transformation of the process $\m{X}$. Then, we can use this homogeneous transformation and results from Chapter~\ref{chap:statSeparInhom} to estimate the parameter $\bm{\theta}$.
 
-If also the separated inhomogeneity were unknown, we cannot find the homogeneous transformation and we need to estimate it along with the constant rate matrix. Suppose that the vector parameter is divided into $(\bm{\beta}^{\top}, \bm{\theta}^{\top})^{\top}$, where $\bm{\beta} \in \R^{H_1}$, $\bm{\theta} \in \R^{H_2}$, and $H_1 + H_2 = H$. Further suppose that function $\lambda = \lambda (\bm{\beta})$ follows log-linear model similar to Chapter~\ref{chap:statSeparInhom} and matrix $\bm{\Gamma} = \bm{\Gamma} (\bm{\theta})$ has similar parametrization as in Chapter~\ref{chap:statHomo}.
+If also the separated inhomogeneity were unknown, we cannot find the homogeneous transformation $X_{\tau(t)}$ and we need to estimate both the constant rate matrix and the separated inhomogeneity function. Suppose that the vector parameter is divided into $(\bm{\beta}^{\top}, \bm{\theta}^{\top})^{\top}$, where $\bm{\beta} \in \R^{H_1}$, $\bm{\theta} \in \R^{H_2}$, and $H_1 + H_2 = H$. Further suppose that function $\lambda = \lambda (\bm{\beta})$ follows log-linear model similar to Chapter~\ref{chap:statSeparInhom} and matrix $\bm{\Gamma} = \bm{\Gamma} (\bm{\theta})$ has similar parametrization as in Chapter~\ref{chap:statHomo}.
 
-Note that we do not need to keep the intercept in the log-linear term in most of reliable models. If for each $\bm{\theta} \in \Theta$ and $c > 0$ there exists $\bm{\theta}^{'} \in \Theta$ such that $\bm{\Gamma} (\bm{\theta}^{'}) = c \bm{\Gamma} ( \bm{\theta} )$, then it is easier to set $c = \e^{\beta_0} = 1$, i.e. the intercept $\beta_0 = 0$ needs not be included in the model.
+Note that we do not need to keep the intercept in the log-linear term for separated inhomogeneity function in most of reliable models. If for each $\bm{\theta} \in \Theta$ and $c > 0$ there exists $\bm{\theta}^{'} \in \Theta$ such that $\bm{\Gamma} (\bm{\theta}^{'}) = c \bm{\Gamma} ( \bm{\theta} )$, then it is easier to set $c = \e^{\beta_0} = 1$, i.e. the intercept $\beta_0 = 0$ needs not be included in the model.
 
 The log-likelihood function
 \begin{multline*}
@@ -376,7 +376,7 @@ Let $\mathcal{I} = \{1, ..., H \}$ be an index set with subsets $\mathcal{I}_{ij
 	q_{ij} (t; \bm{\beta}) = \left\{
                 \begin{array}{ll}
                   \exp \left( \sum_{h \in \mathcal{I}_{ij}} \beta_h \varphi_h (t) \right) & \left| \mathcal{I}_{ij} \right| > 0 \\
-                  0 & \text{else}
+                  0 & \text{else,}
                 \end{array}
               \right
 \]
@@ -450,7 +450,7 @@ The MLE of vector parameter $\bm{\beta}$ may be estimated using Newton-Raphson m
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Regression Model}
 
-In the last part of this chapter, we introduce a model that allows dependence of the Markov Process on other variables. Suppose we observe a piecewise constant and right-continuous function (covariate) $\m{z}: \Rplus \to \R^M$ along with each process.
+In the last part of this chapter, we introduce a model that allows dependence of the Markov Process on other variables. This model is similar to Cox proportional hazard model (see \cite{Cox72}). Suppose we observe a piecewise constant and right-continuous function (covariate) $\m{z}: \Rplus \to \R^M$ along with each process.
 
 Further let function $\bm{\varphi}: \Rplus \times \R^M \to \R^H$ depend both on time and the covariate. Denote the vector function by $\bm{\varphi} (t, \m{z} (t))$. We keep the assumptions from Chapter~\ref{chap:generalMarkov} and modify only the definition of intensities
 \[

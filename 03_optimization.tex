@@ -59,7 +59,7 @@ Let us also denote by $\widehat{\x}^{*}_n$ the optimal point and by $ \widehat{g
 
 Obviously, the problem has two main parts that should be solved. First, we need to estimate the objective function $\widehat{g}_n (\x)$. Second, this objective function needs to be maximized. Here we start with the second part. Later, we find out that more than the objective function $g$ needs to be estimated for the purpose of optimization.
 
-We briefly introduce two iterative methods for numerical optimization. That is we take an initial point $\x^{(0)}$. Then we iteratively update $x_k \mapsto x_{k+1}$ until the sequence $x_0, x_1, ...$ reaches selected criterion. Both of the methods are described in \cite{kroese11}, Appendix C. Then, we generalize these two numerical methods to be applicable in simulated optimization. In the same book, in Chapters 11 and 12, different methods for simulated optimization are described. 
+We briefly introduce two iterative methods for numerical optimization. That is we take an initial point $\x^{(0)}$. Then we iteratively update $x_k \mapsto x_{k+1}$ until the sequence $x_0, x_1, ...$ reaches selected criterion. Both of the methods are described in \cite{Kroese11}, Appendix C. Then, we generalize these two numerical methods to be applicable in simulated optimization. In the same book, in Chapters 11 and 12, different methods for simulated optimization are described. 
 
 Let us suppose that the derivatives of $g$ exist and are known. Denote by $\nabla_{g} (\x)$ the gradient of $g$ at $\x$. The \emph{gradient descent} method updates the sequence in form
 \[
@@ -256,6 +256,8 @@ Until now, we supposed only mean function as the objective function. The method 
 	Another way to find the optimum of given function with a noise is to use the cross entropy method. This method searches for the optimum by narrowing the set over which the objective function is optimized. In general, this method does not estimate the maximum of the conditional mean as the response surface method does. Also, only a little is known about the convergence of the algorithm.
 	
 	The algorithm has two main steps. In the first step, the independent values are generated from some distribution and the values that performs the best are selected for the second step. In the second step, the sampling distribution is updated based on the best performances from the first step. It is suitable to use the sampling distributions fixed up to the choice of the distribution parameter and update only the parameter.
+	
+	Following algorithm is adapted from \cite{Kroese11}.
 
 \begin{algorithm}[Cross Entropy for Noisy Optimization]\
 	\label{algo:crossEntropy}

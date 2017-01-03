@@ -69,7 +69,7 @@ Let us denote a set of passengers that travel route $(k,l)$ for each train by
 \]
 The elements of the score function~(\ref{eq:finalU}) that matter for route $(k,l)$ can be written as
 \begin{multline*}
-	\m{U}_{n,k,l} (\m{\beta})
+	\m{U}_{n,(k,l)} (\m{\beta})
 	= \sum_{\nu=1}^{n} \\
 	\left[ \sum_{i \in \mathcal{I}_{k,l}^{\nu}} \left(
 		\begin{array}{c}
@@ -80,7 +80,7 @@ The elements of the score function~(\ref{eq:finalU}) that matter for route $(k,l
 \end{multline*}
 where
 \[
-	\m{V}_{k,l}^{(j)} (t) = \left(
+	\m{V}_{(k,l)}^{(j)} (t) = \left(
 		\begin{array}{c}
 			1 \\ \log(p_{k,l}^{(j)}) \\ t \\ t \log(p_{k,l}^{(j)})
 		\end{array}
@@ -88,7 +88,7 @@ where
 \]
 The observed information matrix~(\ref{eq:finalI}) is block diagonal. The block that matters for route $(k,l)$ is
 \[
-	\m{I}_{n,k,l} (\m{\beta}) = \frac{1}{n} \sum_{\nu=1}^{n} \left[
+	\m{I}_{n,(k,l)} (\m{\beta}) = \frac{1}{n} \sum_{\nu=1}^{n} \left[
 	\sum_{j=1}^J \int_{\tau_{j-1}}^{\tau_j}
 	\left(\m{V}_{k,l}^{(j)} (t)  \right)
 	\left(\m{V}_{k,l}^{(j)} (t)  \right)^{\top}
@@ -99,35 +99,35 @@ The estimate $\hat{\m{\beta}}_n$ needs to be found using Newton-Raphson method d
 
 Note that even though the variance matrix of the estimate $\hat{\m{\beta}}_n$ is block diagonal the elements of the estimate that matter for different routes are still dependent. The seat availability determined by passengers on all routes influences the variance of the estimate.
 
-The method was used for an analysis of simulated data of processes of selling the tickets for 500 trains. The demand was both simulated and estimated using model~(\ref{eq:demandModel}). The parameters for demand intensity for each route individually are in Table~\ref{tab:estimatedBeta}. The tickets began to sell 60 days before the departure, say at time $0$. For computational purposes we assume the time period of 60 days as $[0,1]$. The train departed (and the tickets ended sells) from stations $1, ..., 5$ at times $\frac{59.4}{60}$, $\frac{59.44}{60}$, $\frac{59.48}{60}$, $\frac{59.52}{60}$, $\frac{59.56}{60}$, and $\frac{59.6}{60}$. Prices that we used for the simulations are in Table~\ref{tab:ticketPrices}. The times of price changes were at the end of the 30th, 46th, 54th, and 58th day.
+The method was used for an analysis of simulated data of processes of selling the tickets for 500 trains. The demand was both simulated and estimated using model~(\ref{eq:demandModel}). The parameters for demand intensity for each route individually are in Table~\ref{tab:betaPrices}. The tickets began to sell 60 days before the departure, say at time~$0$. For computational purposes we assume the time period of 60 days as $[0,1]$. The train departed (and the tickets ended sells) from stations $1, ..., 5$ at times $\frac{59.4}{60}$, $\frac{59.44}{60}$, $\frac{59.48}{60}$, $\frac{59.52}{60}$, $\frac{59.56}{60}$, and $\frac{59.6}{60}$. Prices that we used for the simulations are in Table~\ref{tab:betaPrices}. The times of price changes were at the end of the 30th, 46th, 54th, and 58th day.
 
 Distribution of times of purchases is showed in Figure~\ref{fig:histTimes}. There are significant drops in demand right after the price has increased. Also at the end of the selling period the number of tickets sold decreases because the train departed from its begging station and some of the tickets cannot be sold anymore.
 
 \begin{table}[ht]
 	\centering
-	\begin{tabular}{llllll}
-		\hline
-		route & $\m{p}^{(1)}$ & $\m{p}^{(2)}$ & $\m{p}^{(3)}$ & $\m{p}^{(4)}$ & $\m{p}^{(5)}$ \\ 
-		\hline
-		(1,2) & 110 & 121 & 133 & 146 & 161 \\ 
-		(1,3) & 205 & 226 & 248 & 273 & 301 \\ 
-		(1,4) & 296 & 325 & 358 & 394 & 433 \\ 
-		(1,5) & 383 & 421 & 463 & 510 & 561 \\ 
-		(1,6) & 468 & 515 & 567 & 623 & 686 \\ 
-		(2,3) & 110 & 121 & 133 & 146 & 161 \\ 
-		(2,4) & 205 & 226 & 248 & 273 & 301 \\ 
-		(2,5) & 296 & 325 & 358 & 394 & 433 \\ 
-		(2,6) & 383 & 421 & 463 & 510 & 561 \\ 
-		(3,4) & 110 & 121 & 133 & 146 & 161 \\ 
-		(3,5) & 205 & 226 & 248 & 273 & 301 \\ 
-		(3,6) & 296 & 325 & 358 & 394 & 433 \\ 
-		(4,5) & 110 & 121 & 133 & 146 & 161 \\ 
-		(4,6) & 205 & 226 & 248 & 273 & 301 \\ 
-		(5,6) & 110 & 121 & 133 & 146 & 161 \\ 
-		 \hline
+	\begin{tabular}{lrrrrrrrrr}
+		\toprule
+		route & \beta_1 & \beta_2 & \beta_3 & \beta_4 & $\m{p}^{(1)}$ & $\m{p}^{(2)}$ & $\m{p}^{(3)}$ & $\m{p}^{(4)}$ & $\m{p}^{(5)}$ \\ 
+		\midrule
+(1,2) & 17.92 & -4.19 & 3.77 & 1.17 & 86 & 99 & 114 & 131 & 151 \\ 
+  (1,3) & 17.17 & -4.04 & 4.20 & 1.69 & 157 & 181 & 208 & 239 & 275 \\ 
+  (1,4) & 23.36 & -4.20 & 3.52 & 0.77 & 223 & 256 & 295 & 339 & 390 \\ 
+  (1,5) & 18.54 & -3.52 & 4.42 & 1.11 & 286 & 329 & 378 & 435 & 500 \\ 
+  (1,6) & 18.28 & -3.62 & 4.74 & 1.33 & 347 & 399 & 458 & 527 & 606 \\ 
+  (2,3) & 14.54 & -3.38 & 4.02 & 1.28 & 86 & 99 & 114 & 131 & 151 \\ 
+  (2,4) & 20.58 & -4.27 & 3.94 & 1.41 & 157 & 181 & 208 & 239 & 275 \\ 
+  (2,5) & 22.10 & -4.34 & 3.55 & 1.20 & 223 & 256 & 295 & 339 & 390 \\ 
+  (2,6) & 26.05 & -5.02 & 3.77 & 1.22 & 286 & 329 & 378 & 435 & 500 \\ 
+  (3,4) & 18.29 & -3.69 & 4.32 & 0.55 & 86 & 99 & 114 & 131 & 151 \\ 
+  (3,5) & 17.35 & -3.43 & 4.18 & 0.95 & 157 & 181 & 208 & 239 & 275 \\ 
+  (3,6) & 21.56 & -4.19 & 3.58 & 1.22 & 223 & 256 & 295 & 339 & 390 \\ 
+  (4,5) & 21.19 & -4.54 & 3.19 & 1.07 & 86 & 99 & 114 & 131 & 151 \\ 
+  (4,6) & 16.76 & -3.43 & 4.60 & 0.89 & 157 & 181 & 208 & 239 & 275 \\ 
+  (5,6) & 18.24 & -4.54 & 4.07 & 1.37 & 86 & 99 & 114 & 131 & 151 \\ 
+		 \bottomrule
 	\end{tabular}
-	\caption{Prices for individual time periods used in simulation of demand for train tickets.}
-	\label{tab:ticketPrices}
+	\caption{Actual parameters of the demand and prices for individual time periods used in simulation of demand for train tickets.}
+	\label{tab:betaPrices}
 \end{table}
 
 \begin{figure}[t]
@@ -137,9 +137,21 @@ Distribution of times of purchases is showed in Figure~\ref{fig:histTimes}. Ther
 	\label{fig:histTimes}
 \end{figure}
 
-\input{tables/estimated_beta.tex}
+% \input{tables/estimated_beta.tex}
+
 
 The number of simulated trains is clearly way higher that the railways company may be using for modeling the demand of single train. The assumption that the demand is the same for almost ten years is most certainly wrong. On the other hand, the demand for specific train might be similar to other trains departing in similar times or the same type of day in a week (workday or weekend) or the train in opposite direction. If the company dispatches for example 16 trains a day in each direction the total number of trains in a week is 224. That is why the number of simulated trains may be reasonable.
+
+However, high correlation of regressors implies high correlation and variance of all estimates. Theoretical Fisher information matrix (with assumption of unlimited train capacity) indicates that the estimated values might not have meaningful values. In many cases the standard deviation is greater than the expected value (actual value of the parameter) so that the sign of the estimate has different value in many cases. However, the Newton-Raphson method still converges and we are able to calculate the estimates. Their values are meaningless because of their standard errors. For example, the variance matrix for estimates that matters for route between stations $1$ and $2$ is
+\[
+	\m{I}_{(1,2)} =
+	\begin{pmatrix}
+	124.41 & -26.15 & -108.82 & 23.27 \\ 
+  -26.15 & 5.50 & 22.78 & -4.88 \\ 
+  -108.82 & 22.78 & 99.31 & -21.06 \\ 
+  23.27 & -4.88 & -21.06 & 4.47 \\ 
+	\end{pmatrix}.
+\]
 
 %Denote by $D_{s_0, s_1, t}$ the number of demanded tickets for the route from station $s_0$ to station $s_1$ up to time $t$. Under the assumptions it holds that $D_{s_0, s_1, t} \sim Poi (\Lambda(t))$, where $\Lambda(t)$ is unknown cumulative intensity. The processes $\m{D}_{s_0, s_1}$ are independent by assumption. The total number of sold tickets for individual routes cannot be modeled separately, because of the rivalry on the demand side.
 
