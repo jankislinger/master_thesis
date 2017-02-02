@@ -1,0 +1,82 @@
+---
+title: "title"
+author: "Jan Kislinger"
+date: "1.2.2017"
+output:
+  ioslides_presentation:
+    self_contained: no
+  html_document: default
+  beamer_presentation:
+    keep_tex: yes
+  slidy_presentation: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Motivace
+
+- Vlastní téma / zadání
+- Zvědavost cestujícího
+- Teorie $\leftrightarrow$ aplikace
+
+
+
+## Obsah práce
+
+Teoretická část
+
+- Markovský proces s nehomogenní intenzitou
+- Odhady intenzity MP
+- Simulační optimalizace
+
+Praktické aplikace
+
+- Modelování poptávky
+- Optimalizace cen jízdného
+
+
+$$
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\st}{\textrm{s.t.}}
+
+$$
+<div class = "small">
+$$\begin{aligned}
+		& \underset{\mathbf{p}_1, ..., \mathbf{p}_M}{\max} & & \mathbb{E} [\mathbf{p}_{m}^{\top} (\mathbf{z}_m - \mathbf{z}_{m-1})] - \theta \left[ \sum_{m=1}^M \Phi_1 (\mathbf{p}_m) + \sum_{m=2}^M \Phi_2 (\mathbf{p}_m) \right] \\
+		& \st & & \mathbf{p}_m \in \R^{\binom{K}{2}}, \qquad m = 1, ..., M
+\end{aligned}$$
+</div>
+
+
+## Markovský proces s nehomogenní intenzitou
+## Odhady intenzity MP
+## Simulační optimalizace
+## Modelování poptávky
+## Optimalizace cen jízdného
+
+# Vlastní přínos
+
+## Getting up
+
+- Turn off alarm
+- Get out of bed
+
+## Breakfast
+
+- Eat eggs
+- Drink coffee
+
+# In the evening
+
+## Dinner
+
+- Eat spaghetti
+- Drink wine
+
+## Going to sleep
+
+- Get in bed
+- Count sheep

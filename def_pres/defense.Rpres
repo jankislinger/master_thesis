@@ -1,0 +1,33 @@
+
+Dynamic Fare Model
+========================================================
+author: Jan Kislinger
+date: 1. 2. 2017
+autosize: true
+
+Thesis Content
+========================================================
+
+Theoretical part:
+
+- Inhomogenous Markov process
+- Estimating intensity of MP
+- Simulated optimization
+
+Practical applications:
+
+-
+
+Slide With Code
+========================================================
+
+```{r}
+summary(cars)
+```
+
+Slide With Plot
+========================================================
+
+```{r, echo=FALSE}
+plot(cars)
+```

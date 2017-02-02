@@ -1,0 +1,188 @@
+\documentclass[ignorenonframetext,]{beamer}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\beamertemplatenavigationsymbolsempty
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+\ifxetex
+\usepackage{mathspec}
+\else
+\usepackage{fontspec}
+\fi
+\defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\newif\ifbibliography
+
+% Prevent slide breaks in the middle of a paragraph:
+\widowpenalties 1 10000
+\raggedbottom
+
+\AtBeginPart{
+\let\insertpartnumber\relax
+\let\partname\relax
+\frame{\partpage}
+}
+\AtBeginSection{
+\ifbibliography
+\else
+\let\insertsectionnumber\relax
+\let\sectionname\relax
+\frame{\sectionpage}
+\fi
+}
+\AtBeginSubsection{
+\let\insertsubsectionnumber\relax
+\let\subsectionname\relax
+\frame{\subsectionpage}
+}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+
+\title{Dynamický model ceny jízdného}
+\author{Jan Kislinger}
+\date{1.2.2017}
+
+\begin{document}
+\frame{\titlepage}
+
+\begin{frame}{Motivace}
+
+\begin{itemize}
+\tightlist
+\item
+  Vlastní téma / zadání
+\item
+  Zvědavost cestujícího
+\item
+  Teorie \(\leftrightarrow\) aplikace
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]{Obsah práce}
+
+Teoretická část
+
+\begin{itemize}
+\tightlist
+\item
+  Markovský proces s nehomogenní intenzitou
+\item
+  Odhady intenzity MP
+\item
+  Simulační optimalizace
+\end{itemize}
+
+Praktické aplikace
+
+\begin{itemize}
+\tightlist
+\item
+  Modelování poptávky
+\item
+  Optimalizace cen jízdného
+\end{itemize}
+
+\$\$\textbackslash{}begin\{aligned\}
+
+\begin{verbatim}
+    & \underset{\m{p}_1, ..., \m{p}_M}{\max} & & \E [\m{p}_{m}^{\top} (\z_m - \z_{m-1})] - \theta \left[ \sum_{m=1}^M \Phi_1 (\m{p}_m) + \sum_{m=2}^M \Phi_2 (\m{p}_m) \right] \\
+    & \st & & \m{p}_m \in \R^{\binom{K}{2}}, \qquad m = 1, ..., M
+\end{verbatim}
+
+\textbackslash{}end\{aligned\}\$\$
+
+\end{frame}
+
+\begin{frame}{Markovský proces s nehomogenní intenzitou}
+
+\end{frame}
+
+\begin{frame}{Odhady intenzity MP}
+
+\end{frame}
+
+\begin{frame}{Simulační optimalizace}
+
+\end{frame}
+
+\begin{frame}{Modelování poptávky}
+
+\end{frame}
+
+\begin{frame}{Optimalizace cen jízdného}
+
+\end{frame}
+
+\section{Vlastní přínos}\label{vlastni-prinos}
+
+\begin{frame}{Getting up}
+
+\begin{itemize}
+\tightlist
+\item
+  Turn off alarm
+\item
+  Get out of bed
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Breakfast}
+
+\begin{itemize}
+\tightlist
+\item
+  Eat eggs
+\item
+  Drink coffee
+\end{itemize}
+
+\end{frame}
+
+\section{In the evening}\label{in-the-evening}
+
+\begin{frame}{Dinner}
+
+\begin{itemize}
+\tightlist
+\item
+  Eat spaghetti
+\item
+  Drink wine
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Going to sleep}
+
+\begin{itemize}
+\tightlist
+\item
+  Get in bed
+\item
+  Count sheep
+\end{itemize}
+
+\end{frame}
+
+\end{document}
